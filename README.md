@@ -14,7 +14,9 @@ Build OpenWrt using GitHub Actions
 - Generate `.config` files using [Lean's OpenWrt](https://github.com/coolsnowwolf/lede) source code. ( You can change it through environment variables in the workflow file. )
 - Push `.config` file to the GitHub repository, and the build starts automatically.Progress can be viewed on the Actions page.
 - When the build is complete, click the `Artifacts` button in the upper right corner of the Actions page to download the binaries.
-
+- 通过修改`diypart1.sh`文件修改`feeds.conf.default`配置。
+- 通过修改`diypart2.sh`文件可以自定义默认IP，登陆密码等。按我的需要现在的默认IP为`192.168.2.1`,不需要更改的加`#`注释就可以。
+- 自定义编译的方法可以搭配使用，自己需要的服务一般不会随意变化，就可以在 `make menuconfig` 选好（新手参考[OpenWrt MenuConfig设置和LuCI插件选项说明](https://mtom.ml/827.html)）后执行 `./scripts/diffconfig.sh > seed.config` 复制一下这个`seed.config`的文本内容到项目根目录的`.config`文件中（建议自命名），这样就不用每次都SSH连接到 Actions生成编译配置，真正一键编译。
 ### Tips
 
 It may take a long time to create a `.config` file and build the OpenWrt firmware. Thus, before create repository to build your own firmware, you may check out if others have already built it which meet your needs by simply [search `Actions-Openwrt` in GitHub](https://github.com/search?q=Actions-openwrt).
